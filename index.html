@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pioneon bank</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <article id="login-area" class="login-from">
+        <h1 class="text-center"> pioneon bank</h1>
+        <div class="submit-area">
+            <h4>log in</h4>
+            <input type="text" placeholder="enter you email" class="form-control">
+            <br>
+            <input type="password" placeholder="enter your password" class="form-control">
+            <br>
+            <button id="enter-btn" class="btn btn-success"> Enter </button>
+        </div>
+    </article>
+    <article id="transction-area">
+        <h1> transction </h1>
+        <div class="row">
+            <col-md-4>
+                <div class="deposit statars">
+                    <h5>Deposit</h5>
+                     <h2>$ <span id="currentDeposit">00</span></h2>
+                </div>
+            </col-md-4>
+            <col-md-4>
+                <div class="withdrow statars">
+                    <h5>withdrow</h5>
+                    <h2 id="currentwithdrow">00</h2>
+                </div>
+            </col-md-4>
+            <col-md-4>
+                <div class="balace statars">
+                    <h5>balance</h5>
+                    <h2 id="currentBlance">410</h2>
+                </div>
+            </col-md-4>
+        </div>
+        <div class="row">
+            <col-md-6>
+                <div class="submit-area-d">
+                    <h4>Deposit </h4>
+                    <input id="depositAmount" type="text" placeholder="$ amout you want to deposit" class="form-control">
+                    <br>
+                    <button id="deposit-cunt" class="btn btn-success">Deposit</button>
+                </div>
+            </col-md-6>
+            <col-md-6>
+                <div class="submit-area-d">
+                    <h4>Withdrow</h4>
+                    <input id="withdrowAmount" type="text" placeholder="$ amout you want to withdrow" class="form-control">
+                    <br>
+                    <button id="withdrow" class="btn btn-success">Withdrow</button>
+                </div>
+            </col-md-6>
+        </div>
+    </article>
+    <script>
+        // login button event handel
+        var EnterBtn = document.getElementById('enter-btn');
+        EnterBtn.addEventListener('click' , function(){
+            const loginArea =document.getElementById('login-area');
+            loginArea.style.display ="none";
+            const transctionID =document.getElementById('transction-area');
+            transctionID.style.display="block";
+        })
+
+        // add deposit 
+        const depositCunt =document.getElementById('deposit-cunt');
+        depositCunt.addEventListener('click', function(){
+            var depositNumber=  getInputNumber('depositAmount')
+        //   console.log(depositNumber);
+             updateSpanText("currentBlance" , depositNumber);
+             updateSpanText("currentDeposit" , depositNumber);
+            document.getElementById('depositAmount').value="";
+        }); 
+         // add withdrow          
+            const withdrowBtn = document.getElementById('withdrow');
+            withdrowBtn.addEventListener('click' , function(){
+                const withdrowNumber = getInputNumber('withdrowAmount');
+
+                updateSpanText("currentwithdrow" , withdrowNumber);
+                updateSpanText("currentBlance" ,-1 * withdrowNumber);
+
+                document.getElementById('withdrowAmount').value="";
+            }); 
+            
+            function getInputNumber(id){
+                const amount =document.getElementById(id).value;
+                amountNumber=parseFloat(amount);
+                return amountNumber;
+            }
+            function updateSpanText(id , addedNumber){
+                const current = document.getElementById(id).innerText;
+                const currentNumber = parseFloat(current);
+                const TotalBlance = addedNumber + currentNumber;
+                document.getElementById(id).innerText = TotalBlance;
+            } 
+    </script>
+</body>
+</html>
+
